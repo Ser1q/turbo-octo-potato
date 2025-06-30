@@ -204,8 +204,8 @@ with st.expander("✨ Our first night"):
     ).rotate(-90, expand=True)
 
     # Create two columns
-    left_col, right_col = st.columns([2, 1])
-    with left_col:
+    left_col, right_col = st.columns([1, 2])
+    with right_col:
         st.markdown("### Inst the WINGMAN")
         st.write("""
         There is NO day that went without thinking about you. I could't handle the urge to write to you, to talk to you. 
@@ -228,7 +228,7 @@ with st.expander("✨ Our first night"):
         Күлкіңнен айналайын алтыным менің. Қаттыыы сені жақсы көреміііін❤️❤️❤️
         """)
 
-    with right_col:
+    with left_col:
         st.image(img1, use_container_width=True, caption="09.06.2024")
 
 # List of videos with titles and descriptions
