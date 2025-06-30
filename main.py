@@ -65,6 +65,7 @@ st.markdown(confetti_html, unsafe_allow_html=True)
 
 
 # Load and play your local mp3
+st.write("Some music 😝💕")
 audio_file = open("music.mp3", "rb")
 audio_bytes = audio_file.read()
 
@@ -216,17 +217,74 @@ with st.expander("✨ Our first night"):
         
         Сенің жаныңда мен өзімді шынайы бахытты сезіндім. Сенімен өткізген жаз менің ең көңілді әрі әсерлі естеліктерімнің бірі. Тек сенің жаныңда
         мен өзімді сонша сабырлы және уайымсыз сезіне аламын. Өмірімде не болып жатса да, сен жанымда болсаң, маған артық дым қажет емес.
+        Менің қазір аңсап жүретінім, тек сенің құшағың. Түн сайын сені түстерімде көріп, армандап жүрмін. 
+        Жаным менің, мен сені қатты сағындым, сенен жақынырақ, сенен артығырақ түсінетін адам жоқ бұл әлемде.
+        Алтыным менің, күнім, айым менің, мен сені қатты жақсы көремін. Сенсіз менің өмірімнің мәні әлі де сұрақ болып жүретін еді.
+        Ия, мен жұмыс жасаймын, еңбек етемін, бірақ бұның бәрі сенсіз түкке тұрмас еді. Сен үшін әлемнің кез келген жеріне бару маған мәселе емес, әрдайым жаныңда болуға жолын табамын.
+        Сен менің басты арманым да мақсатымсың.
+        
+        Болашақта саған барымды бергім келеді. Барлық қамқорлық пен жағдайды жасағым келеді. Сені қатты сүйемін, біздің күніміз құтты болсын❤️
+        
+        Күлкіңнен айналайын алтыным менің. Қаттыыы сені жақсы көреміііін❤️❤️❤️
         """)
 
     with right_col:
         st.image(img1, use_container_width=True, caption="09.06.2024")
 
+# List of videos with titles and descriptions
+videos = [
+    {
+        "file": "./her/video1.MOV",
+        "title": "❣️ My lovely yapper",
+        "desc": "Even with my dead ass lips, you kissed me",
+    },
+    {
+        "file": "./her/video4.MOV",
+        "title": "🌷 Flowers fit you",
+        "desc": "A day of laughter, sunsets, and sandy toes",
+    },
+    {
+        "file": "./her/video3.MOV",
+        "title": "🚅 Through the ice and fire to you",
+        "desc": "Shymkent's wonder of the world",
+    },
+    {
+        "file": "./her/video2.MOV",
+        "title": "🌹 I love you",
+        "desc": "Tough day, even though, I love you",
+    },
+    {
+        "file": "./her/video5.MOV",
+        "title": "👨‍🍳 Your personal chef",
+        "desc": "I love to cook you food, I want to always cook it for you",
+    },
+]
 
-# Music embed (replace with your song)
-st.markdown(
-    """
-## 🎶 Our Song
-<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/yourtrackid" width="100%" height="80" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-""",
-    unsafe_allow_html=True,
-)
+
+# Helper function
+def render_video(file, title, desc):
+    st.markdown(
+        f"""
+        <div style="text-align: center;">
+            <h4 style="color: #FF69B4;">{title}</h4>
+            <p style="font-size: 15px; color: #666;">{desc}</p>
+        </div>
+    """,
+        unsafe_allow_html=True,
+    )
+    with open(file, "rb") as f:
+        st.video(f.read())
+
+
+# First row (3 videos)
+row1 = st.columns(3)
+for i in range(3):
+    with row1[i]:
+        render_video(videos[i]["file"], videos[i]["title"], videos[i]["desc"])
+
+# Second row (2 videos centered)
+row2 = st.columns([1, 3, 1, 3, 1])  # Center 2 videos
+with row2[1]:
+    render_video(videos[3]["file"], videos[3]["title"], videos[3]["desc"])
+with row2[3]:
+    render_video(videos[4]["file"], videos[4]["title"], videos[4]["desc"])
