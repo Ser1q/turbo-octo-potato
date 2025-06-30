@@ -1,13 +1,74 @@
 import streamlit as st
 from PIL import Image
+import random
 
 st.set_page_config(page_title="1 Year With You 💖", layout="wide")
 
 st.markdown(
-    "<h1 style='text-align: center; color: pink;'>1 - year already? The time flyes with you my zhanm❤️</h1>",
+    "<h1 style='text-align: center; color: pink;'>1 - year already? The time flyes with you zhanm❤️</h1>",
     unsafe_allow_html=True,
 )
-st.balloons()
+# CSS for confetti animation and styling
+st.markdown(
+    """
+<style>
+@keyframes confettiFall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.confetti {
+  position: fixed;
+  top: -10vh;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px; /* Set to 50% for circles */
+  animation-name: confettiFall;
+  animation-timing-function: ease-in;
+  z-index: 9999;
+}
+</style>
+""",
+    unsafe_allow_html=True,
+)
+
+# Colors for confetti
+colors = ["#FF5F5F", "#FFC93C", "#6AAB9C", "#5F9DF7", "#B983FF", "#FF85B3", "#7BE495"]
+
+# Generate confetti divs
+confetti_html = ""
+for i in range(80):
+    left = random.randint(0, 100)
+    duration = round(random.uniform(2, 5), 2)
+    delay = round(random.uniform(0, 3), 2)
+    size = random.randint(6, 12)
+    color = random.choice(colors)
+
+    confetti_html += f"""
+    <div class="confetti" style="
+        left: {left}vw;
+        background-color: {color};
+        animation-duration: {duration}s;
+        animation-delay: {delay}s;
+        width: {size}px;
+        height: {size}px;
+    "></div>
+    """
+
+st.markdown(confetti_html, unsafe_allow_html=True)
+
+
+# Load and play your local mp3
+audio_file = open("music.mp3", "rb")
+audio_bytes = audio_file.read()
+
+st.audio(audio_bytes, format="audio/mp3", start_time=0)
 
 st.markdown("## 💌 I love everything about you")
 # st.write("""
@@ -19,6 +80,44 @@ def resize_image(image_path, max_width=300):
     img = Image.open(image_path)
     img.thumbnail((max_width, max_width))  # Keeps aspect ratio
     return img
+
+
+def show_heart_rain():
+    st.markdown(
+        """
+    <style>
+    @keyframes fall {
+      0% {transform: translateY(-10vh) rotate(0deg); opacity: 1;}
+      100% {transform: translateY(110vh) rotate(360deg); opacity: 0;}
+    }
+    .heart {
+      position: fixed;
+      top: -10vh;
+      font-size: 24px;
+      animation-name: fall;
+      animation-timing-function: linear;
+      z-index: 9999;
+    }
+    </style>
+    """,
+        unsafe_allow_html=True,
+    )
+
+    heart_html = ""
+    for _ in range(70):
+        left = random.randint(0, 100)
+        duration = round(random.uniform(3, 7), 4)
+        delay = round(random.uniform(0, 4), 2)
+        size = random.randint(16, 32)
+        heart_html += f"""
+        <div class="heart" style="
+            left: {left}vw;
+            animation-duration: {duration}s;
+            animation-delay: {delay}s;
+            font-size: {size}px;
+        ">❤️</div>
+        """
+    st.markdown(heart_html, unsafe_allow_html=True)
 
 
 # Photo grid (simplified)
@@ -41,17 +140,13 @@ with col3:
 
 # Timeline or expander
 st.markdown("## 🕰️ Our Journey")
-with st.expander("Our First Eye Catch"):
-    st.write(
-        "It is funny that even though we knew about each other at some point, we met at get to know eachother after some time. I will not forget how I was curious about you, when we first talked after volleyball 02.06.2024, and for the next day met and talked a bit at MATH 251"
-    )
-
+with st.expander("👀 Our First Eye Catch"):
     img1 = Image.open(
         "./her/the_day.JPG",
     ).rotate(180, expand=True)
 
     # Create two columns
-    left_col, right_col = st.columns([1, 2])  # Ratio 1:2 for more text space
+    left_col, right_col = st.columns([1, 2])
 
     with left_col:
         st.image(img1, use_container_width=True, caption="02.06.2024")
@@ -67,7 +162,7 @@ with st.expander("Our First Eye Catch"):
         It is one of the my favorite parts of you, that you can listen to me, so I could share all of my feelings and wonders about any situation that I am going rn.
         """)
 
-with st.expander("💬 Not a day without youter"):
+with st.expander("💬 Not a day without you"):
     st.write(
         "However, it would be hard to see you only at volleyball. Fortunatelly, we have the goat here."
     )
@@ -77,7 +172,7 @@ with st.expander("💬 Not a day without youter"):
     )
 
     # Create two columns
-    left_col, right_col = st.columns([2, 1])  # Ratio 1:2 for more text space
+    left_col, right_col = st.columns([2, 1])
 
     with left_col:
         st.markdown("### Zhanbota the GOAT")
@@ -92,6 +187,39 @@ with st.expander("💬 Not a day without youter"):
 
     with right_col:
         st.image(img1, use_container_width=True, caption="03.06.2024")
+
+
+with st.expander("✨ Our first night"):
+    st.write("Would you like some sushi? Yes/no?")
+
+    if st.button("Click Me!"):
+        show_heart_rain()
+        st.success("This was the moment our hearts began to fall❤️")
+
+    st.write("Funny thing is, we had one day off. It was unbearable.")
+
+    img1 = Image.open(
+        "./her/the_first_night.jpg",
+    ).rotate(-90, expand=True)
+
+    # Create two columns
+    left_col, right_col = st.columns([2, 1])
+    with left_col:
+        st.markdown("### Inst the WINGMAN")
+        st.write("""
+        There is NO day that went without thinking about you. I could't handle the urge to write to you, to talk to you. 
+        Even if it was just one day, just the first week to know each other, even if I had work to do. I love you. 
+        I was amazed how cute you are and it was really hard to not to tell you that the day I met you, and especially that night.
+        
+        I loved how we went all around the campus and talked about everything. I loved to be with you and I was really happy to be able to talk to you everyday.
+        I loved that we could spend time just the two us.
+        
+        Сенің жаныңда мен өзімді шынайы бахытты сезіндім. Сенімен өткізген жаз менің ең көңілді әрі әсерлі естеліктерімнің бірі. Тек сенің жаныңда
+        мен өзімді сонша сабырлы және уайымсыз сезіне аламын. Өмірімде не болып жатса да, сен жанымда болсаң, маған артық дым қажет емес.
+        """)
+
+    with right_col:
+        st.image(img1, use_container_width=True, caption="09.06.2024")
 
 
 # Music embed (replace with your song)
